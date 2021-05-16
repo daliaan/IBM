@@ -6,20 +6,24 @@ import dalian.razvan.cucer.ibm.core.baseClasses.BaseRecyclerViewHolder
 import dalian.razvan.cucer.ibm.core.baseClasses.RecyclerViewItemClickListener
 import dalian.razvan.cucer.ibm.models.Rate
 import dalian.razvan.cucer.ibm.models.Transaction
+import kotlinx.android.synthetic.main.rate_cell.view.*
+import kotlinx.android.synthetic.main.transaction_cell.view.*
 
-class IBMViewHolder(itemView: View): BaseRecyclerViewHolder<BaseModel>(itemView) {
+class IBMViewHolder<T: BaseModel>(itemView: View): BaseRecyclerViewHolder<T>(itemView) {
 
-    override fun bind(item: BaseModel, onItemClick: RecyclerViewItemClickListener<BaseModel>) {
+    override fun bind(item: T, onItemClick: RecyclerViewItemClickListener<T>) {
         when(item.getObjectType()) {
             BaseModel.Companion.Type.RATE -> {
-                var rate = (item as Rate)
+                val rate = (item as Rate)
 
+                itemView.rate_name.text = rate.from
 
                 itemView.setOnClickListener { onItemClick.onItemClick(item) }
             }
             BaseModel.Companion.Type.TRANSACTION -> {
-                var transaction = (item as Transaction)
+                val transaction = (item as Transaction)
 
+                itemView.transaction_name.text = transaction.sku
 
                 itemView.setOnClickListener { onItemClick.onItemClick(item) }
             }

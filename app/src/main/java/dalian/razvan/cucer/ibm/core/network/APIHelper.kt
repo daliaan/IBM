@@ -25,7 +25,7 @@ suspend fun <T> safeApiCall(apiCall: suspend () -> Response<T>): Result<T?> {
     return try {
         parseResponse(apiCall.invoke())
     } catch (e: Exception) {
-        Log.e("restly_", Log.getStackTraceString(e))
+        Log.e("ibm_", Log.getStackTraceString(e))
         when (e) {
             !is CancellationException -> EventBus.getDefault()
                 .post(GlobalServerErrorEvent(e.message))

@@ -1,5 +1,6 @@
 package dalian.razvan.cucer.ibm.core.repository
 
+import android.util.Log
 import dalian.razvan.cucer.ibm.core.network.API
 import dalian.razvan.cucer.ibm.core.network.Result
 import dalian.razvan.cucer.ibm.core.network.model.APIResponse
@@ -15,23 +16,26 @@ class IBMRepositoryImpl(private val api: API): IBMRepository {
     private val currencies = arrayListOf<Currency>()
     private val currenciesNames = arrayListOf<String>()
 
-    override suspend fun loadRates(): Result<APIResponse<Rate>?> = safeApiCall {
+    override suspend fun loadRates(): Result<ArrayList<Rate>?> = safeApiCall {
         api.getRates()
     }
 
-    override suspend fun loadTransactions(): Result<APIResponse<Transaction>?> = safeApiCall {
+    override suspend fun loadTransactions(): Result<ArrayList<Transaction>?> = safeApiCall {
         api.getTransactions()
     }
 
     override fun setRates(list: ArrayList<Rate>) {
+        Log.e(javaClass.simpleName, "rates $list")
         this.rates.addAll(list)
     }
 
     override fun setTransactions(list: ArrayList<Transaction>) {
+        Log.e(javaClass.simpleName, "transactions $list")
         this.transactions.addAll(list)
     }
 
     override fun setCurrencies(list: ArrayList<Currency>) {
+        Log.e(javaClass.simpleName, "currencies $list")
         this.currencies.addAll(list)
     }
 

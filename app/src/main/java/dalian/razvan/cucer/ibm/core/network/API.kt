@@ -9,7 +9,7 @@ import retrofit2.http.*
 interface API {
 
     @GET(Endpoints.RATES)
-    suspend fun getRates(): Response<APIResponse<Rate>>
+    suspend fun getRates(): Response<ArrayList<Rate>>
     @GET(Endpoints.TRANSACTIONS)
-    suspend fun getTransactions(): Response<APIResponse<Transaction>>
+    suspend fun getTransactions(): Response<ArrayList<Transaction>>
 }

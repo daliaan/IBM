@@ -14,6 +14,7 @@ abstract class BaseRecyclerViewAdapter<T: BaseModel,VH : BaseRecyclerViewHolder<
     }
 
     override fun getItemCount(): Int = items.size
+    override fun getItemViewType(position: Int): Int = getItem(position).getObjectType().viewType
 
     fun addItemClickListener(itemClickListener: RecyclerViewItemClickListener<T>) {
         this.itemClickListener = itemClickListener
@@ -28,4 +29,6 @@ abstract class BaseRecyclerViewAdapter<T: BaseModel,VH : BaseRecyclerViewHolder<
         this.items.clear()
         setList(items)
     }
+
+    abstract fun whichLayout(viewType: Int): Int
 }

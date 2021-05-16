@@ -33,8 +33,8 @@ object RetrofitFactory {
     }
 
     private fun getCorrectHeader(chain: Interceptor.Chain): String {
-        if (chain.request().url.toUrl().toString().contains("https://api.github.com/search"))
-            return "application/vnd.github.mercy-preview+json"
-        return "application/vnd.github.v3+json"
+        if (chain.request().url.toUrl().toString().contains(Endpoints.BASE_URL))
+            return "application/${Endpoints.BASE_URL}+json"
+        return "application/${Endpoints.BASE_URL}+json"
     }
 }

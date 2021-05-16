@@ -11,7 +11,8 @@
         android:name=".IBM"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.GitHubAndroidRepos">
+        android:theme="@style/Theme.IBM"
+        android:usesCleartextTraffic="true">
 
         <activity
             android:name=".screens.IBMActivity"

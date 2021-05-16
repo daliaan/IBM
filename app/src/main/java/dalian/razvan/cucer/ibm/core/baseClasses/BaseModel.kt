@@ -3,10 +3,10 @@ package dalian.razvan.cucer.ibm.core.baseClasses
 abstract class BaseModel {
 
     companion object{
-        enum class Type{
-            RATE,
-            TRANSACTION,
-            NOT_SET
+        enum class Type(var viewType: Int){
+            RATE(0),
+            TRANSACTION(1),
+            NOT_SET(-1)
         }
     }
 

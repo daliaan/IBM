@@ -37,7 +37,7 @@ private fun parseError(errorBody: JsonObject): List<ApiError> {
 
             errorMap[field] = strCause
         } catch (excp: Exception) {
-            Log.d("restly_ApiError", "Can`t parse json, cause\t${excp.localizedMessage}")
+            Log.d("ibm_ApiError", "Can`t parse json, cause\t${excp.localizedMessage}")
         }
     }
     return parseMapToErrors(errorMap)
