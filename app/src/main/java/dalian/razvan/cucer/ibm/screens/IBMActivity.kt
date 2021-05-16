@@ -1,14 +1,10 @@
 package dalian.razvan.cucer.ibm.screens
 
 import android.os.Bundle
-import androidx.activity.viewModels
-import androidx.recyclerview.widget.LinearLayoutManager
 import dalian.razvan.cucer.ibm.R
 import dalian.razvan.cucer.ibm.core.baseClasses.BaseActivity
-import dalian.razvan.cucer.ibm.core.baseClasses.RecyclerViewItemClickListener
-import dalian.razvan.cucer.ibm.customViews.IBMAdapter
-import dalian.razvan.cucer.ibm.models.Rate
-import kotlinx.android.synthetic.main.activity_ibm.*
+import dalian.razvan.cucer.ibm.core.repository.IBMRepositoryDAO
+import dalian.razvan.cucer.ibm.core.repository.IBMRepositoryDAOCallback
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 
@@ -28,7 +24,7 @@ class IBMActivity: BaseActivity(), KoinComponent, IBMRepositoryDAOCallback {
     }
 
     override fun onLoadRatesSuccess() {
-        
+
     }
 
     override fun onLoadRatesFailure(error: String) {

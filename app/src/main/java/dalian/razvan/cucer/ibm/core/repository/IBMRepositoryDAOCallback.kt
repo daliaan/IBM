@@ -1,4 +1,4 @@
-package dalian.razvan.cucer.ibm.screens
+package dalian.razvan.cucer.ibm.core.repository
 
 interface IBMRepositoryDAOCallback {
     fun onLoadRatesSuccess()

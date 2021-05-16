@@ -1,9 +1,8 @@
-package dalian.razvan.cucer.ibm.screens
+package dalian.razvan.cucer.ibm.core.repository
 
 import androidx.lifecycle.viewModelScope
 import dalian.razvan.cucer.ibm.core.baseClasses.BaseViewModel
 import dalian.razvan.cucer.ibm.core.network.Result
-import dalian.razvan.cucer.ibm.core.repository.IBMRepository
 import dalian.razvan.cucer.ibm.models.Currency
 import kotlinx.coroutines.launch
 
