@@ -5,7 +5,7 @@
     android:id="@+id/navigation.xml"
     app:startDestination="@id/repos_list">
 
-    <fragment android:name="dalian.razvan.cucer.githubandroidrepos.screens.reposList.ReposListFragment"
+    <fragment android:name="dalian.razvan.cucer.ibm.screens.reposList.ReposListFragment"
         android:id="@+id/repos_list"
         tools:layout="repos_list">
 
@@ -18,7 +18,7 @@
 
     </fragment>
 
-    <fragment android:name="dalian.razvan.cucer.githubandroidrepos.screens.repoDetails.RepoDetailsFragment"
+    <fragment android:name="dalian.razvan.cucer.ibm.screens.repoDetails.RepoDetailsFragment"
         android:id="@+id/repo_details"
         tools:layout="repo_details"/>
 
