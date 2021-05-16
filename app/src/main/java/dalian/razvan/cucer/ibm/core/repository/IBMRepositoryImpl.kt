@@ -13,6 +13,7 @@ class IBMRepositoryImpl(private val api: API): IBMRepository {
     private val rates = arrayListOf<Rate>()
     private val transactions = arrayListOf<Transaction>()
     private val currencies = arrayListOf<Currency>()
+    private val currenciesNames = arrayListOf<String>()
 
     override suspend fun loadRates(): Result<APIResponse<Rate>?> = safeApiCall {
         api.getRates()
@@ -34,7 +35,12 @@ class IBMRepositoryImpl(private val api: API): IBMRepository {
         this.currencies.addAll(list)
     }
 
+    override fun setCurrenciesNames(list: ArrayList<String>) {
+        this.currenciesNames.addAll(list)
+    }
+
     override fun getRates(): ArrayList<Rate> = rates
     override fun getTransactions(): ArrayList<Transaction> = transactions
     override fun getCurrencies(): ArrayList<Currency> = currencies
+    override fun getCurrenciesNames(list: ArrayList<String>) = currenciesNames
 }

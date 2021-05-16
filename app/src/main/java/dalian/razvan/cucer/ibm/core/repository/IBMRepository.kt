@@ -14,8 +14,10 @@ interface IBMRepository {
     fun setRates(list: ArrayList<Rate>)
     fun setTransactions(list: ArrayList<Transaction>)
     fun setCurrencies(list: ArrayList<Currency>)
+    fun setCurrenciesNames(list: ArrayList<String>)
 
     fun getRates(): ArrayList<Rate>
     fun getTransactions(): ArrayList<Transaction>
     fun getCurrencies(): ArrayList<Currency>
+    fun getCurrenciesNames(list: ArrayList<String>): ArrayList<String>
 }
