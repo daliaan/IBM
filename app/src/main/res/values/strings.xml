@@ -4,4 +4,7 @@
     <string name="repos_not_loaded">Repos not loaded.</string>
     <string name="no_more_repos">No more repos to load.</string>
     <string name="try_api_load">Try to download it from API.</string>
+    <string name="direct_rates">Direct rates</string>
+    <string name="select_currency">Select Currency</string>
+    <string name="indirect_rates">Indirect rates</string>
 </resources>

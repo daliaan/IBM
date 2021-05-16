@@ -17,10 +17,12 @@ interface IBMRepository {
     fun setSKUValues(list: ArrayList<SKUValue>)
     fun setCurrencies(list: ArrayList<Currency>)
     fun setCurrenciesNames(list: ArrayList<String>)
+    fun setSelectedCurrency(item: Currency)
 
     fun getRates(): ArrayList<Rate>
     fun getSKUValues(): ArrayList<SKUValue>
     fun getTransactions(): ArrayList<Transaction>
     fun getCurrencies(): ArrayList<Currency>
     fun getCurrenciesNames(list: ArrayList<String>): ArrayList<String>
+    fun getSelectedCurrency(): Currency
 }

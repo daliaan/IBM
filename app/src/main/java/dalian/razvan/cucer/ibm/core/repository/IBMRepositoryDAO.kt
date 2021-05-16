@@ -1,14 +1,17 @@
 package dalian.razvan.cucer.ibm.core.repository
 
 import androidx.lifecycle.viewModelScope
+import dalian.razvan.cucer.ibm.core.baseClasses.BaseFragmentView
 import dalian.razvan.cucer.ibm.core.baseClasses.BaseViewModel
 import dalian.razvan.cucer.ibm.core.network.Result
 import dalian.razvan.cucer.ibm.models.Currency
 import dalian.razvan.cucer.ibm.models.SKUValue
+import dalian.razvan.cucer.ibm.screens.currencies.CurrenciesFragmentView
 import kotlinx.coroutines.launch
 
 class IBMRepositoryDAO(private val repository: IBMRepository): BaseViewModel() {
 
+    private lateinit var navigateToCurrency: Currency
     private var ratesCallback: IBMRepositoryDAOCallback? = null
     private var transactionsCallback: IBMRepositoryDAOCallback? = null
 
@@ -40,6 +43,7 @@ class IBMRepositoryDAO(private val repository: IBMRepository): BaseViewModel() {
                         for (currency in currencies) {
                             currency.calculateIndirectRates(it)
                         }
+
                         repository.setCurrenciesNames(currenciesNames)
                         repository.setCurrencies(currencies)
                         ratesLoaded = true
@@ -84,6 +88,17 @@ class IBMRepositoryDAO(private val repository: IBMRepository): BaseViewModel() {
                             }
                             skuValues.add(skuValue)
                         }
+                        var selectedCurrency = Currency("EUR")
+                        for (currency in getCurrencies()) {
+                            if (currency.name == selectedCurrency.name) {
+                                selectedCurrency = currency
+                                break
+                            }
+                        }
+                        for (skuValue in skuValues) {
+                            skuValue.setSelectedCurrency(selectedCurrency)
+                        }
+                        repository.setSelectedCurrency(selectedCurrency)
                         repository.setSKUValues(skuValues)
                         transactionsLoaded = true
                         callback.onLoadTransactionsSuccess()
@@ -119,4 +134,21 @@ class IBMRepositoryDAO(private val repository: IBMRepository): BaseViewModel() {
         if (transactionsLoaded)
             transactionsCallback?.onLoadTransactionsSuccess()
     }
+
+    fun setSelectedCurrency(view: BaseFragmentView) {
+        setSelectedCurrency(navigateToCurrency, view)
+    }
+
+    fun setSelectedCurrency(item: Currency, view: BaseFragmentView) {
+        repository.setSelectedCurrency(item)
+        for (skuValue in getSKUValues())
+            skuValue.setSelectedCurrency(item)
+        view.goBack()
+    }
+
+    fun navigateToCurrencyDetails(item: Currency) {
+        navigateToCurrency = item
+    }
+
+    fun getNavigateToCurrencyDetails() = navigateToCurrency
 }

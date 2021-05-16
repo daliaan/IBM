@@ -38,7 +38,7 @@ class RatesFragment: BaseFragment(), RatesFragmentView, KoinComponent {
     }
 
     override fun setList(rates: ArrayList<Rate>) {
-        adapter.setList(rates)
+        adapter.resetList(rates)
         adapter.notifyDataSetChanged()
     }
 }

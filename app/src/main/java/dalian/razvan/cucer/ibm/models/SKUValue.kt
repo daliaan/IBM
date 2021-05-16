@@ -1,6 +1,8 @@
 package dalian.razvan.cucer.ibm.models
 
 import dalian.razvan.cucer.ibm.core.baseClasses.BaseModel
+import java.math.RoundingMode
+import java.text.DecimalFormat
 
 class SKUValue(val sku: String): BaseModel() {
 
@@ -9,6 +11,11 @@ class SKUValue(val sku: String): BaseModel() {
     private val transactions = arrayListOf<Transaction>()
     private var totalAmountInSelectedCurrency = 0.0
     private var selectedCurrency: Currency = Currency("EUR")
+    private var decimalFormat = DecimalFormat("#,###.00")
+
+    init {
+        decimalFormat.roundingMode = RoundingMode.HALF_EVEN
+    }
 
     fun addTransaction(transaction: Transaction) {
         transactions.add(transaction)
@@ -18,7 +25,9 @@ class SKUValue(val sku: String): BaseModel() {
         selectedCurrency = currency
     }
 
-    fun getTotalAmount(): Double {
+    fun getSelectedCurrency() = selectedCurrency.name
+
+    fun getTotalAmount(): String {
         totalAmountInSelectedCurrency = 0.0
 
         for (transaction in transactions) {
@@ -38,6 +47,6 @@ class SKUValue(val sku: String): BaseModel() {
             }
         }
 
-        return totalAmountInSelectedCurrency
+        return decimalFormat.format(totalAmountInSelectedCurrency)
     }
 }

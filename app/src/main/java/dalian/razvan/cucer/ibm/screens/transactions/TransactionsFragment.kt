@@ -43,7 +43,7 @@ class TransactionsFragment: BaseFragment(), TransactionsFragmentView, KoinCompon
     }
 
     override fun setList(transactions: ArrayList<Transaction>) {
-        adapter.setList(transactions)
+        adapter.resetList(transactions)
         adapter.notifyDataSetChanged()
     }
 }

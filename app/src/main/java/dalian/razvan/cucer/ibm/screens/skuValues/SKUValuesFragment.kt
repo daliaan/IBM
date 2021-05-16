@@ -28,12 +28,12 @@ class SKUValuesFragment: BaseFragment(), SKUValuesFragmentView, KoinComponent {
         list.adapter = adapter
         adapter.addItemClickListener(object: RecyclerViewItemClickListener<SKUValue> {
             override fun onItemClick(item: SKUValue) {
-
+                
             }
         })
 
-        goToTransactions.setOnClickListener {
-            it.findNavController().navigate(R.id.go_to_transactions)
+        goToCurrencies.setOnClickListener {
+            it.findNavController().navigate(R.id.go_to_currencies)
         }
     }
 
@@ -43,7 +43,7 @@ class SKUValuesFragment: BaseFragment(), SKUValuesFragmentView, KoinComponent {
     }
 
     override fun setList(skuValues: ArrayList<SKUValue>) {
-        adapter.setList(skuValues)
+        adapter.resetList(skuValues)
         adapter.notifyDataSetChanged()
     }
 }

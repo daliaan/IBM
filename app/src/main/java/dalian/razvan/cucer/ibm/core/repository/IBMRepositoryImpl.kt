@@ -12,6 +12,7 @@ import dalian.razvan.cucer.ibm.models.Transaction
 
 class IBMRepositoryImpl(private val api: API): IBMRepository {
 
+    private lateinit var selectedCurrency: Currency
     private val rates = arrayListOf<Rate>()
     private val transactions = arrayListOf<Transaction>()
     private val skuValues = arrayListOf<SKUValue>()
@@ -50,9 +51,14 @@ class IBMRepositoryImpl(private val api: API): IBMRepository {
         this.currenciesNames.addAll(list)
     }
 
+    override fun setSelectedCurrency(item: Currency) {
+        this.selectedCurrency = item
+    }
+
     override fun getRates(): ArrayList<Rate> = rates
     override fun getSKUValues(): ArrayList<SKUValue> =skuValues
     override fun getTransactions(): ArrayList<Transaction> = transactions
     override fun getCurrencies(): ArrayList<Currency> = currencies
     override fun getCurrenciesNames(list: ArrayList<String>) = currenciesNames
+    override fun getSelectedCurrency(): Currency = selectedCurrency
 }

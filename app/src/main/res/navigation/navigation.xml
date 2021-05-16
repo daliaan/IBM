@@ -19,6 +19,13 @@
         app:enterAnim="@anim/slide_in_right"
         app:exitAnim="@anim/slide_out_left"/>
 
+    <action android:id="@+id/go_to_currencies"
+        app:destination="@id/currencies"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"/>
+
     <action android:id="@+id/go_to_currency_details"
         app:destination="@id/currency_details"
         app:popEnterAnim="@anim/slide_in_left"
@@ -37,6 +44,10 @@
     <fragment android:id="@+id/transactions"
         android:label="transactions"
         android:name="dalian.razvan.cucer.ibm.screens.transactions.TransactionsFragment"/>
+
+    <fragment android:id="@+id/currencies"
+        android:label="currencies"
+        android:name="dalian.razvan.cucer.ibm.screens.currencies.CurrenciesFragment"/>
 
     <fragment android:id="@+id/currency_details"
         android:label="currency_details"

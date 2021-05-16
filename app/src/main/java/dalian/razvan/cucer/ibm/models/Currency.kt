@@ -38,13 +38,16 @@ class Currency(val name: String): BaseModel() {
     fun calculateIndirectRates(allRates: ArrayList<Rate>) {
         val tempRates = arrayListOf<Rate>()
         tempRates.addAll(allRates)
+        val tempRatesToRemove = arrayListOf<Rate>()
         for (rate in tempRates) {
             if (rate.from == name)
-                tempRates.remove(rate)
+                tempRatesToRemove.add(rate)
             else if (rate.to == name) {
-                tempRates.remove(rate)
+                tempRatesToRemove.add(rate)
             }
         }
+        tempRates.removeAll(tempRatesToRemove)
+        tempRatesToRemove.clear()
         for (rate in tempRates) {
             for (directRate in directRates) {
                 if (directRate.to == rate.from) {
@@ -67,4 +70,7 @@ class Currency(val name: String): BaseModel() {
         }
         return null
     }
+
+    fun getDirectRates() = directRates
+    fun getIndirectRates() = indirectRates
 }
