@@ -12,14 +12,10 @@ class IBMAdapter<T: BaseModel>: BaseRecyclerViewAdapter<T, IBMViewHolder<T>>() {
             = IBMViewHolder(LayoutInflater.from(parent.context).inflate(whichLayout(viewType), parent, false))
 
     override fun whichLayout(viewType: Int): Int = when(viewType) {
-        0 -> {
-            R.layout.rate_cell
-        }
-        1 -> {
-            R.layout.transaction_cell
-        }
-        else -> {
-            R.layout.ibm_list_cell
-        }
+        0 -> R.layout.rate_cell
+        1 -> R.layout.transaction_cell
+        2 -> R.layout.sku_value_cell
+        3 -> R.layout.currency_cell
+        else -> R.layout.ibm_list_cell
     }
 }

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation.xml"
-    app:startDestination="@id/transactions">
+    app:startDestination="@id/sku_values">
 
     <action android:id="@+id/go_to_rates"
         app:destination="@id/rates"
@@ -29,6 +29,10 @@
     <fragment android:id="@+id/rates"
         android:label="rates"
         android:name="dalian.razvan.cucer.ibm.screens.rates.RatesFragment"/>
+
+    <fragment android:id="@+id/sku_values"
+        android:label="rates"
+        android:name="dalian.razvan.cucer.ibm.screens.skuValues.SKUValuesFragment"/>
 
     <fragment android:id="@+id/transactions"
         android:label="transactions"

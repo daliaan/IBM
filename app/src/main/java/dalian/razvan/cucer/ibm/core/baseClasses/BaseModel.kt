@@ -6,6 +6,8 @@ abstract class BaseModel {
         enum class Type(var viewType: Int){
             RATE(0),
             TRANSACTION(1),
+            SKU_VALUE(2),
+            CURRENCY(3),
             NOT_SET(-1)
         }
     }

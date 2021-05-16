@@ -1,26 +1,69 @@
 package dalian.razvan.cucer.ibm.models
 
-class Currency(val name: String) {
-    private val directTransactions = arrayListOf<String>()
-    private val directRates = arrayListOf<Rate>()
+import android.util.Log
+import dalian.razvan.cucer.ibm.core.baseClasses.BaseModel
 
-    fun addDirectTransaction(currency: String, rate: Rate) {
-        directTransactions.add(currency)
+class Currency(val name: String): BaseModel() {
+
+    override fun getObjectType(): Companion.Type = Companion.Type.CURRENCY
+
+    private val directExchangeRates = arrayListOf<String>()
+    private val directRates = arrayListOf<Rate>()
+    private val indirectExchangeRates = arrayListOf<String>()
+    private val indirectRates = arrayListOf<Rate>()
+
+    fun addDirectExchangeRate(currency: String, rate: Rate) {
+        directExchangeRates.add(currency)
         directRates.add(rate)
     }
 
-    fun hasDirectTransaction(currency: String): Boolean {
-        for (item in directTransactions) {
+    private fun hasDirectExchangeRate(currency: String): Boolean {
+        for (item in directExchangeRates) {
             if (item == currency)
                 return true
         }
         return false
     }
 
-    fun getDirectTransactionRate(currency: String): Rate? {
-        for (i in 0 until directTransactions.size) {
-            if (directTransactions[i] == currency)
-                return directRates[i]
+    fun getDirectExchangeRate(currency: String): Rate? {
+        if (directExchangeRates.contains(currency)) {
+            for (rate in directRates) {
+                if (rate.to == currency)
+                    return rate
+            }
+        }
+        return null
+    }
+
+    fun calculateIndirectRates(allRates: ArrayList<Rate>) {
+        val tempRates = arrayListOf<Rate>()
+        tempRates.addAll(allRates)
+        for (rate in tempRates) {
+            if (rate.from == name)
+                tempRates.remove(rate)
+            else if (rate.to == name) {
+                tempRates.remove(rate)
+            }
+        }
+        for (rate in tempRates) {
+            for (directRate in directRates) {
+                if (directRate.to == rate.from) {
+                    if (!hasDirectExchangeRate(rate.to)) {
+                        indirectRates.add(Rate(directRate.from, rate.to, directRate.rate * rate.rate))
+                        indirectExchangeRates.add(rate.to)
+                    }
+                }
+            }
+        }
+        Log.e("indirectRates", indirectRates.toString())
+    }
+
+    fun getIndirectChangeRates(currency: String): Rate? {
+        if (indirectExchangeRates.contains(currency)) {
+            for (rate in indirectRates) {
+                if (rate.to == currency)
+                    return rate
+            }
         }
         return null
     }

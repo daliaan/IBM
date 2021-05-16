@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import dalian.razvan.cucer.ibm.core.baseClasses.BaseViewModel
 import dalian.razvan.cucer.ibm.core.network.Result
 import dalian.razvan.cucer.ibm.models.Currency
+import dalian.razvan.cucer.ibm.models.SKUValue
 import kotlinx.coroutines.launch
 
 class IBMRepositoryDAO(private val repository: IBMRepository): BaseViewModel() {
@@ -32,9 +33,12 @@ class IBMRepositoryDAO(private val repository: IBMRepository): BaseViewModel() {
                         for (rate in it) {
                             for (currency in currencies) {
                                 if (rate.from == currency.name) {
-                                    currency.addDirectTransaction(rate.to, rate)
+                                    currency.addDirectExchangeRate(rate.to, rate)
                                 }
                             }
+                        }
+                        for (currency in currencies) {
+                            currency.calculateIndirectRates(it)
                         }
                         repository.setCurrenciesNames(currenciesNames)
                         repository.setCurrencies(currencies)
@@ -64,6 +68,23 @@ class IBMRepositoryDAO(private val repository: IBMRepository): BaseViewModel() {
                     val transactionsResponse = response.value
                     transactionsResponse?.let {
                         repository.setTransactions(it)
+                        val transactionsSKU = arrayListOf<String>()
+                        val skuValues = arrayListOf<SKUValue>()
+                        for (item in it) {
+                            if (!transactionsSKU.contains(item.sku)) {
+                                transactionsSKU.add(item.sku)
+                            }
+                        }
+                        for (sku in transactionsSKU) {
+                            val skuValue = SKUValue(sku)
+                            for (item in it) {
+                                if (item.sku == sku) {
+                                    skuValue.addTransaction(item)
+                                }
+                            }
+                            skuValues.add(skuValue)
+                        }
+                        repository.setSKUValues(skuValues)
                         transactionsLoaded = true
                         callback.onLoadTransactionsSuccess()
                         transactionsCallback?.onLoadTransactionsSuccess()
@@ -85,6 +106,7 @@ class IBMRepositoryDAO(private val repository: IBMRepository): BaseViewModel() {
 
     fun getRates() = repository.getRates()
     fun getTransactions() = repository.getTransactions()
+    fun getSKUValues() = repository.getSKUValues()
     fun getCurrencies() = repository.getCurrencies()
 
     fun addRatesCallback(callback: IBMRepositoryDAOCallback) {

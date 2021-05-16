@@ -7,12 +7,14 @@ import dalian.razvan.cucer.ibm.core.network.model.APIResponse
 import dalian.razvan.cucer.ibm.core.network.safeApiCall
 import dalian.razvan.cucer.ibm.models.Currency
 import dalian.razvan.cucer.ibm.models.Rate
+import dalian.razvan.cucer.ibm.models.SKUValue
 import dalian.razvan.cucer.ibm.models.Transaction
 
 class IBMRepositoryImpl(private val api: API): IBMRepository {
 
     private val rates = arrayListOf<Rate>()
     private val transactions = arrayListOf<Transaction>()
+    private val skuValues = arrayListOf<SKUValue>()
     private val currencies = arrayListOf<Currency>()
     private val currenciesNames = arrayListOf<String>()
 
@@ -34,6 +36,11 @@ class IBMRepositoryImpl(private val api: API): IBMRepository {
         this.transactions.addAll(list)
     }
 
+    override fun setSKUValues(list: ArrayList<SKUValue>) {
+        Log.e(javaClass.simpleName, "skuValues $list")
+        this.skuValues.addAll(list)
+    }
+
     override fun setCurrencies(list: ArrayList<Currency>) {
         Log.e(javaClass.simpleName, "currencies $list")
         this.currencies.addAll(list)
@@ -44,6 +51,7 @@ class IBMRepositoryImpl(private val api: API): IBMRepository {
     }
 
     override fun getRates(): ArrayList<Rate> = rates
+    override fun getSKUValues(): ArrayList<SKUValue> =skuValues
     override fun getTransactions(): ArrayList<Transaction> = transactions
     override fun getCurrencies(): ArrayList<Currency> = currencies
     override fun getCurrenciesNames(list: ArrayList<String>) = currenciesNames
