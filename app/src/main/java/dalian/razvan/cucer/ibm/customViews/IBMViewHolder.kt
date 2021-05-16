@@ -13,6 +13,7 @@ import kotlinx.android.synthetic.main.currency_cell.view.*
 import kotlinx.android.synthetic.main.rate_cell.view.*
 import kotlinx.android.synthetic.main.sku_value_cell.view.*
 import kotlinx.android.synthetic.main.transaction_cell.view.*
+import java.text.DecimalFormat
 
 class IBMViewHolder<T: BaseModel>(itemView: View): BaseRecyclerViewHolder<T>(itemView) {
 

@@ -57,7 +57,7 @@ class CurrencyDetailsFragment: BaseFragment(), CurrencyDetailsFragmentView, Koin
     }
 
     override fun goBack() {
-        super.goBack()
         findNavController().popBackStack(R.id.go_to_currencies, true)
+        super.goBack()
     }
 }

@@ -6,7 +6,6 @@ import dalian.razvan.cucer.ibm.core.repository.IBMRepositoryImpl
 import dalian.razvan.cucer.ibm.core.repository.IBMRepositoryDAO
 import dalian.razvan.cucer.ibm.screens.currencies.CurrenciesViewModel
 import dalian.razvan.cucer.ibm.screens.currencyDetails.CurrencyDetailsViewModel
-import dalian.razvan.cucer.ibm.screens.rates.RatesViewModel
 import dalian.razvan.cucer.ibm.screens.skuValues.SKUValuesViewModel
 import dalian.razvan.cucer.ibm.screens.transactions.TransactionsViewModel
 import org.koin.dsl.module
@@ -19,7 +18,6 @@ val repositoryModule = module {
 val viewModelModule = module {
     single { CurrenciesViewModel(get()) }
     single { CurrencyDetailsViewModel(get()) }
-    single { RatesViewModel(get()) }
     single { SKUValuesViewModel(get()) }
     single { TransactionsViewModel(get()) }
 }
