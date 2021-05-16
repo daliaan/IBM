@@ -7,6 +7,13 @@ import dalian.razvan.cucer.ibm.models.Currency
 import kotlinx.coroutines.launch
 
 class IBMRepositoryDAO(private val repository: IBMRepository): BaseViewModel() {
+
+    private var ratesCallback: IBMRepositoryDAOCallback? = null
+    private var transactionsCallback: IBMRepositoryDAOCallback? = null
+
+    private var ratesLoaded = false
+    private var transactionsLoaded = false
+
     fun loadRates(callback: IBMRepositoryDAOCallback) {
         viewModelScope.launch {
             when(val response = repository.loadRates()) {
@@ -31,14 +38,20 @@ class IBMRepositoryDAO(private val repository: IBMRepository): BaseViewModel() {
                         }
                         repository.setCurrenciesNames(currenciesNames)
                         repository.setCurrencies(currencies)
+                        ratesLoaded = true
                         callback.onLoadRatesSuccess()
+                        ratesCallback?.onLoadRatesSuccess()
                     }
                     if (ratesResponse == null) {
+                        ratesLoaded = false
                         callback.onLoadRatesFailure("Result.Success -> NULL")
+                        ratesCallback?.onLoadRatesFailure("Result.Success -> NULL")
                     }
                 }
                 else -> {
+                    ratesLoaded = false
                     callback.onLoadRatesFailure("Result.Failed")
+                    ratesCallback?.onLoadRatesFailure("Result.Failed")
                 }
             }
         }
@@ -51,14 +64,20 @@ class IBMRepositoryDAO(private val repository: IBMRepository): BaseViewModel() {
                     val transactionsResponse = response.value
                     transactionsResponse?.let {
                         repository.setTransactions(it)
+                        transactionsLoaded = true
                         callback.onLoadTransactionsSuccess()
+                        transactionsCallback?.onLoadTransactionsSuccess()
                     }
                     if (transactionsResponse == null) {
+                        transactionsLoaded = false
                         callback.onLoadTransactionsFailure("Result.Success -> NULL")
+                        transactionsCallback?.onLoadTransactionsFailure("Result.Success -> NULL")
                     }
                 }
                 else -> {
+                    transactionsLoaded = false
                     callback.onLoadTransactionsFailure("Result.Failed")
+                    transactionsCallback?.onLoadTransactionsFailure("Result.Failed")
                 }
             }
         }
@@ -67,4 +86,15 @@ class IBMRepositoryDAO(private val repository: IBMRepository): BaseViewModel() {
     fun getRates() = repository.getRates()
     fun getTransactions() = repository.getTransactions()
     fun getCurrencies() = repository.getCurrencies()
+
+    fun addRatesCallback(callback: IBMRepositoryDAOCallback) {
+        ratesCallback = callback
+        if (ratesLoaded)
+            ratesCallback?.onLoadRatesSuccess()
+    }
+    fun addTransactionsCallback(callback: IBMRepositoryDAOCallback) {
+        transactionsCallback = callback
+        if (transactionsLoaded)
+            transactionsCallback?.onLoadTransactionsSuccess()
+    }
 }

@@ -24,6 +24,7 @@ class IBMViewHolder<T: BaseModel>(itemView: View): BaseRecyclerViewHolder<T>(ite
                 val transaction = (item as Transaction)
 
                 itemView.transaction_name.text = transaction.sku
+                itemView.transaction_value.text = transaction.amount + '\n' + transaction.currency
 
                 itemView.setOnClickListener { onItemClick.onItemClick(item) }
             }
