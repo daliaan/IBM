@@ -32,6 +32,7 @@ class CurrencyDetailsFragment: BaseFragment(), CurrencyDetailsFragmentView, Koin
 
         select_currency.setOnClickListener {
             currencyDetailsViewModel.setSelectedCurrency(this@CurrencyDetailsFragment)
+            goBack()
         }
     }
 
@@ -40,10 +41,5 @@ class CurrencyDetailsFragment: BaseFragment(), CurrencyDetailsFragmentView, Koin
         val currency = currencyDetailsViewModel.getCurrency()
 
         ratesAdapter.resetList(currency.getRates())
-    }
-
-    override fun goBack() {
-        findNavController().popBackStack(R.id.go_to_currencies, true)
-        super.goBack()
     }
 }
