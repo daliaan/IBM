@@ -4,13 +4,12 @@
     android:layout_height="56dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:paddingStart="16dp"
-    android:paddingEnd="16dp"
-    android:background="@android:color/secondary_text_dark">
+    android:paddingEnd="16dp">
 
     <com.google.android.material.textview.MaterialTextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/transaction_name"
+        android:id="@+id/transaction_currency_name"
         android:gravity="center_vertical"/>
 
     <com.google.android.material.textview.MaterialTextView
@@ -19,5 +18,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:id="@+id/transaction_value"
         android:gravity="center_vertical"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

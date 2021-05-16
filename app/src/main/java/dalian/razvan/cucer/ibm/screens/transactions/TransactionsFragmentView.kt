@@ -5,5 +5,4 @@ import dalian.razvan.cucer.ibm.models.Transaction
 import java.util.ArrayList
 
 interface TransactionsFragmentView: BaseFragmentView {
-    fun setList(transactions: ArrayList<Transaction>)
 }

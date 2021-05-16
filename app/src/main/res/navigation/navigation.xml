@@ -5,13 +5,6 @@
     android:id="@+id/navigation.xml"
     app:startDestination="@id/sku_values">
 
-    <action android:id="@+id/go_to_rates"
-        app:destination="@id/rates"
-        app:popEnterAnim="@anim/slide_in_left"
-        app:popExitAnim="@anim/slide_out_right"
-        app:enterAnim="@anim/slide_in_right"
-        app:exitAnim="@anim/slide_out_left"/>
-
     <action android:id="@+id/go_to_transactions"
         app:destination="@id/transactions"
         app:popEnterAnim="@anim/slide_in_left"
@@ -32,10 +25,6 @@
         app:popExitAnim="@anim/slide_out_right"
         app:enterAnim="@anim/slide_in_right"
         app:exitAnim="@anim/slide_out_left"/>
-
-    <fragment android:id="@+id/rates"
-        android:label="rates"
-        android:name="dalian.razvan.cucer.ibm.screens.rates.RatesFragment"/>
 
     <fragment android:id="@+id/sku_values"
         android:label="rates"

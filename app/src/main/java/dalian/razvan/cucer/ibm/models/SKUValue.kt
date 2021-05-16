@@ -3,6 +3,7 @@ package dalian.razvan.cucer.ibm.models
 import dalian.razvan.cucer.ibm.core.baseClasses.BaseModel
 import java.math.RoundingMode
 import java.text.DecimalFormat
+import java.util.ArrayList
 
 class SKUValue(val sku: String): BaseModel() {
 
@@ -49,4 +50,6 @@ class SKUValue(val sku: String): BaseModel() {
 
         return decimalFormat.format(totalAmountInSelectedCurrency)
     }
+
+    fun getTransactions(): ArrayList<Transaction> = transactions
 }

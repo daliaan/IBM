@@ -11,6 +11,7 @@ import kotlinx.coroutines.launch
 
 class IBMRepositoryDAO(private val repository: IBMRepository): BaseViewModel() {
 
+    private lateinit var navigateToSKU: SKUValue
     private lateinit var navigateToCurrency: Currency
     private var ratesCallback: IBMRepositoryDAOCallback? = null
     private var transactionsCallback: IBMRepositoryDAOCallback? = null
@@ -150,5 +151,10 @@ class IBMRepositoryDAO(private val repository: IBMRepository): BaseViewModel() {
         navigateToCurrency = item
     }
 
+    fun setNavigateToSKUDetails(item: SKUValue) {
+        navigateToSKU = item
+    }
+
     fun getNavigateToCurrencyDetails() = navigateToCurrency
+    fun getNavigateToSkuDetails() = navigateToSKU
 }

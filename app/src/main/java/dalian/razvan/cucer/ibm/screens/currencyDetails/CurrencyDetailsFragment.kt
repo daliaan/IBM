@@ -53,10 +53,7 @@ class CurrencyDetailsFragment: BaseFragment(), CurrencyDetailsFragmentView, Koin
         val currency = currencyDetailsViewModel.getCurrency()
 
         directRatesAdapter.resetList(currency.getDirectRates())
-        directRatesAdapter.notifyDataSetChanged()
-
         indirectRatesAdapter.resetList(currency.getIndirectRates())
-        indirectRatesAdapter.notifyDataSetChanged()
     }
 
     override fun goBack() {

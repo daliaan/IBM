@@ -23,12 +23,13 @@ class IBMViewHolder<T: BaseModel>(itemView: View): BaseRecyclerViewHolder<T>(ite
                 val rate = (item as Rate)
 
                 itemView.rate_name.text = rate.to
+                itemView.rate_value.text = rate.rate.toString()
             }
             BaseModel.Companion.Type.TRANSACTION -> {
                 val transaction = (item as Transaction)
 
-                itemView.transaction_name.text = transaction.sku
-                itemView.transaction_value.text = transaction.amount.toString() + '\n' + transaction.currency.toString()
+                itemView.transaction_currency_name.text = transaction.currency
+                itemView.transaction_value.text = transaction.amount.toString()
             }
             BaseModel.Companion.Type.SKU_VALUE -> {
                 val skuValue = (item as SKUValue)

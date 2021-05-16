@@ -31,19 +31,11 @@ class TransactionsFragment: BaseFragment(), TransactionsFragmentView, KoinCompon
 
             }
         })
-
-        goToRates.setOnClickListener {
-            it.findNavController().navigate(R.id.go_to_rates)
-        }
     }
 
     override fun onResume() {
         super.onResume()
-        transactionsViewModel.listenForTransactions(this as TransactionsFragmentView)
-    }
-
-    override fun setList(transactions: ArrayList<Transaction>) {
-        adapter.resetList(transactions)
-        adapter.notifyDataSetChanged()
+        val skuValue = transactionsViewModel.getSKUDetails()
+        adapter.resetList(skuValue.getTransactions())
     }
 }

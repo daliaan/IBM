@@ -3,6 +3,7 @@ package dalian.razvan.cucer.ibm.screens.skuValues
 import dalian.razvan.cucer.ibm.core.baseClasses.BaseViewModel
 import dalian.razvan.cucer.ibm.core.repository.IBMRepositoryDAO
 import dalian.razvan.cucer.ibm.core.repository.IBMRepositoryDAOCallback
+import dalian.razvan.cucer.ibm.models.SKUValue
 
 class SKUValuesViewModel(private val dao: IBMRepositoryDAO): BaseViewModel() {
     fun listenForSKUValues(view: SKUValuesFragmentView) {
@@ -23,5 +24,9 @@ class SKUValuesViewModel(private val dao: IBMRepositoryDAO): BaseViewModel() {
                 view.showPopup(error)
             }
         })
+    }
+
+    fun setNavigateToSKUDetails(item: SKUValue) {
+        dao.setNavigateToSKUDetails(item)
     }
 }

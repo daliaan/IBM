@@ -3,13 +3,13 @@ package dalian.razvan.cucer.ibm.screens.skuValues
 import android.os.Bundle
 import android.view.View
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dalian.razvan.cucer.ibm.R
 import dalian.razvan.cucer.ibm.core.baseClasses.BaseFragment
 import dalian.razvan.cucer.ibm.core.baseClasses.RecyclerViewItemClickListener
 import dalian.razvan.cucer.ibm.customViews.IBMAdapter
 import dalian.razvan.cucer.ibm.models.SKUValue
-import dalian.razvan.cucer.ibm.screens.transactions.TransactionsFragmentView
 import kotlinx.android.synthetic.main.fragment_sku_values.*
 import org.koin.core.KoinComponent
 import org.koin.core.inject
@@ -28,7 +28,8 @@ class SKUValuesFragment: BaseFragment(), SKUValuesFragmentView, KoinComponent {
         list.adapter = adapter
         adapter.addItemClickListener(object: RecyclerViewItemClickListener<SKUValue> {
             override fun onItemClick(item: SKUValue) {
-                
+                skuValuesViewModel.setNavigateToSKUDetails(item)
+                findNavController().navigate(R.id.go_to_transactions)
             }
         })
 
@@ -44,6 +45,5 @@ class SKUValuesFragment: BaseFragment(), SKUValuesFragmentView, KoinComponent {
 
     override fun setList(skuValues: ArrayList<SKUValue>) {
         adapter.resetList(skuValues)
-        adapter.notifyDataSetChanged()
     }
 }

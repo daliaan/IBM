@@ -35,6 +35,5 @@ class CurrenciesFragment: BaseFragment(), CurrenciesFragmentView, KoinComponent 
     override fun onResume() {
         super.onResume()
         adapter.resetList(currenciesViewModel.getCurrencies())
-        adapter.notifyDataSetChanged()
     }
 }
