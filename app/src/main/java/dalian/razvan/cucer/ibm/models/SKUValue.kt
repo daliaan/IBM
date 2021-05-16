@@ -35,15 +35,9 @@ class SKUValue(val sku: String): BaseModel() {
             if (transaction.currency == selectedCurrency.name) {
                 totalAmountInSelectedCurrency += transaction.amount
             } else {
-                val transactionRate = selectedCurrency.getDirectExchangeRate(transaction.currency)
-                if (transactionRate != null) {
-                    transactionRate?.let {
-                        totalAmountInSelectedCurrency += transaction.amount * it.rate
-                    }
-                } else {
-                    selectedCurrency.getIndirectChangeRates(transaction.currency)?.let {
-                        totalAmountInSelectedCurrency += transaction.amount * it.rate
-                    }
+                val transactionRate = selectedCurrency.getExchangeRate(transaction.currency)
+                transactionRate?.let {
+                    totalAmountInSelectedCurrency += transaction.amount * it.rate
                 }
             }
         }

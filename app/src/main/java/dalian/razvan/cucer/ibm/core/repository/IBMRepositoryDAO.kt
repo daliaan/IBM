@@ -6,7 +6,6 @@ import dalian.razvan.cucer.ibm.core.baseClasses.BaseViewModel
 import dalian.razvan.cucer.ibm.core.network.Result
 import dalian.razvan.cucer.ibm.models.Currency
 import dalian.razvan.cucer.ibm.models.SKUValue
-import dalian.razvan.cucer.ibm.screens.currencies.CurrenciesFragmentView
 import kotlinx.coroutines.launch
 
 class IBMRepositoryDAO(private val repository: IBMRepository): BaseViewModel() {
@@ -37,12 +36,12 @@ class IBMRepositoryDAO(private val repository: IBMRepository): BaseViewModel() {
                         for (rate in it) {
                             for (currency in currencies) {
                                 if (rate.from == currency.name) {
-                                    currency.addDirectExchangeRate(rate.to, rate)
+                                    currency.addExchangeRate(rate.to, rate)
                                 }
                             }
                         }
                         for (currency in currencies) {
-                            currency.calculateIndirectRates(it)
+                            currency.calculateMissingRates(it, currenciesNames.size)
                         }
 
                         repository.setCurrenciesNames(currenciesNames)

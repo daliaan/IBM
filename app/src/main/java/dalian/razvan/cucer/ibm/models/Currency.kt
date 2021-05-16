@@ -7,27 +7,25 @@ class Currency(val name: String): BaseModel() {
 
     override fun getObjectType(): Companion.Type = Companion.Type.CURRENCY
 
-    private val directExchangeRates = arrayListOf<String>()
-    private val directRates = arrayListOf<Rate>()
-    private val indirectExchangeRates = arrayListOf<String>()
-    private val indirectRates = arrayListOf<Rate>()
+    private val exchangeRates = arrayListOf<String>()
+    private val rates = arrayListOf<Rate>()
 
-    fun addDirectExchangeRate(currency: String, rate: Rate) {
-        directExchangeRates.add(currency)
-        directRates.add(rate)
+    fun addExchangeRate(currency: String, rate: Rate) {
+        exchangeRates.add(currency)
+        rates.add(rate)
     }
 
-    private fun hasDirectExchangeRate(currency: String): Boolean {
-        for (item in directExchangeRates) {
+    private fun hasExchangeRate(currency: String): Boolean {
+        for (item in exchangeRates) {
             if (item == currency)
                 return true
         }
         return false
     }
 
-    fun getDirectExchangeRate(currency: String): Rate? {
-        if (directExchangeRates.contains(currency)) {
-            for (rate in directRates) {
+    fun getExchangeRate(currency: String): Rate? {
+        if (exchangeRates.contains(currency)) {
+            for (rate in rates) {
                 if (rate.to == currency)
                     return rate
             }
@@ -35,10 +33,12 @@ class Currency(val name: String): BaseModel() {
         return null
     }
 
-    fun calculateIndirectRates(allRates: ArrayList<Rate>) {
+    fun calculateMissingRates(allRates: ArrayList<Rate>, totalNumberOfRatesRequired: Int) {
         val tempRates = arrayListOf<Rate>()
         tempRates.addAll(allRates)
         val tempRatesToRemove = arrayListOf<Rate>()
+        val indirectRates = arrayListOf<Rate>()
+        val indirectExchangeRates = arrayListOf<String>()
         for (rate in tempRates) {
             if (rate.from == name)
                 tempRatesToRemove.add(rate)
@@ -49,28 +49,22 @@ class Currency(val name: String): BaseModel() {
         tempRates.removeAll(tempRatesToRemove)
         tempRatesToRemove.clear()
         for (rate in tempRates) {
-            for (directRate in directRates) {
+            for (directRate in rates) {
                 if (directRate.to == rate.from) {
-                    if (!hasDirectExchangeRate(rate.to)) {
+                    if (!hasExchangeRate(rate.to)) {
                         indirectRates.add(Rate(directRate.from, rate.to, directRate.rate * rate.rate))
                         indirectExchangeRates.add(rate.to)
                     }
                 }
             }
         }
-        Log.e("indirectRates", indirectRates.toString())
-    }
-
-    fun getIndirectChangeRates(currency: String): Rate? {
-        if (indirectExchangeRates.contains(currency)) {
-            for (rate in indirectRates) {
-                if (rate.to == currency)
-                    return rate
-            }
+        rates.addAll(indirectRates)
+        exchangeRates.addAll(indirectExchangeRates)
+        if (rates.size + indirectRates.size != totalNumberOfRatesRequired) {
+            calculateMissingRates(allRates, totalNumberOfRatesRequired)
         }
-        return null
+        Log.e("rates", rates.toString())
     }
 
-    fun getDirectRates() = directRates
-    fun getIndirectRates() = indirectRates
+    fun getRates() = rates
 }
